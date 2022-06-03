@@ -7,9 +7,10 @@ import "ds-test/test.sol";
 import {BytesLib} from 'solidity-bytes-utils/BytesLib.sol';
 
 import {stringsExt} from '../src/stringsExt.sol';
+import {stringArr} from '../src/stringArr.sol';
 
 contract lz77Test is DSTest {
-    //using strings for *;
+    using stringArr for *;
     using stringsExt for *;
     using BytesLib for bytes;
 
@@ -72,15 +73,11 @@ contract lz77Test is DSTest {
         string memory source = "go gopher go gop gopher go";
         string memory search = "gop";
 
-        emit log_uint(LastIndex(source, search));
+        emit log_uint(source.LastIndex(search));
 
     }
 
-    function LastIndex(string memory source, string memory search) internal pure returns (uint) {
-        stringsExt.slice memory _search = search.toSlice();
-
-        return source.toSlice().rfind(_search)._len - _search._len;
-    }
+    
 
     function testUntil() public {
 
@@ -94,17 +91,7 @@ contract lz77Test is DSTest {
     
 
 
-    function until(stringsExt.slice memory self, uint index) internal pure returns (stringsExt.slice memory) {
-        if (self._len < index) {
-            return self;
-        }
-
-        self._len = index + 1;
-
-        return self;
-    }
-
-    function testStrPart() public {
+      function testStrPart() public {
 
         string memory source = "go gopher go gop gopher go";
         uint startIdx = 10;
