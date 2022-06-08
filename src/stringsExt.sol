@@ -1,5 +1,8 @@
 /*
- * @title String & slice utility library for Solidity contracts.
+ * 
+ @notice extended from Nick Johnson's String & slice utility library for Solidity contracts to support bytes.
+ *
+ @title String & slice utility library for Solidity contracts.
  * @author Nick Johnson <arachnid@notdot.net>
  *
  * @dev Functionality in this library is largely implemented using an
@@ -692,6 +695,23 @@ library stringsExt {
      */
     function contains(slice memory self, slice memory needle) internal pure returns (bool) {
         return rfindPtr(self._len, self._ptr, needle._len, needle._ptr) != self._ptr;
+    }
+
+    /*
+     * @dev Returns the first position of the last instance of `needle` in `self`.
+     * @param self The slice to search.
+     * @param needle The text to search for in `self`.
+     * @return The index position of `needle` in `self` if found, false 0.
+     */
+
+    function lastIndex(slice memory self, slice memory needle) internal pure returns (uint) {
+        uint256 foundLen = rfind(self, needle)._len;
+
+        if (foundLen != 0) {
+            return rfind(self, needle)._len - needle._len + 1;
+        } else {
+            return 0;
+        }
     }    
 
     /*
