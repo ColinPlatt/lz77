@@ -1,3 +1,4 @@
 forge-std/=lib/forge-std/src/
-solidity-bytes-utils/=lib/solidity-bytes-utils/contracts/
 ds-test/=lib/forge-std/lib/ds-test/src/
+inflate-sol/=lib/inflate-sol/contracts/
+solidity-bytes-utils/=lib/solidity-bytes-utils/contracts/
