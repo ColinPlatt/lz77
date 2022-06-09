@@ -37,7 +37,7 @@ contract LZ77assemblyTest is DSTest {
         unchecked{
             while(idx < rawSliceLength-1) {
                 //LZ77_match(rawData.slice(searchIndex, idx).toSliceBytes(), rawData.slice(idx, aheadLen).toSliceBytes());
-                emit log_string("new entry");
+                emit log_string("new loop iteration- searchSlice Len:");
                 emit log_uint(searchSlice._len);
                 emit log_string(string.concat(" search: '", searchSlice.toString(), "' ahead:'", aheadSlice.toString(), "'"));
                 (position, length) = LZ77_match(searchSlice, aheadSlice);
@@ -50,8 +50,12 @@ contract LZ77assemblyTest is DSTest {
 
                 compressedData = bytes.concat(compressedData, encode(position, length, nextCharacter));
 
+                emit log_string("before increment- searchSlice Len:");
                 emit log_uint(searchSlice._len);
+
                 (searchSlice, aheadSlice, idx) = alignSlices(searchSlice, aheadSlice, length, idx, rawSliceLength);
+
+                emit log_string("after increment- searchSlice Len:");
                 emit log_uint(searchSlice._len);
                 
             }
